@@ -15,7 +15,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $employees = Employee::with('company')->paginate(10);
+        return view('employees.index', compact('employees'));
     }
 
     /**
@@ -25,7 +26,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        $companies = Company::all();
+        return view('employees.create', compact('companies'));
     }
 
     /**
@@ -60,7 +62,8 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        $companies = Company::all();
+        return view('employees.edit', compact('employee', 'companies'));
     }
 
     /**
@@ -70,9 +73,11 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(StoreEmployeeRequest $request, Employee $employee)
     {
-        //
+        $employee->update($request->validated());
+
+        return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');
     }
 
     /**
