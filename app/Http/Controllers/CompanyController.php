@@ -36,9 +36,17 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
-        $validated = $request->validated();
+        $data = $request->validated();
 
-        // Handle company creation logic here
+        // Handle logo upload.
+        if ($request->hasFile('logo')) {
+            $logoPath = $request->file('logo')->store('logos', 'public');
+            $data['logo'] = $logoPath;
+        }
+
+        Company::create($data);
+
+        return redirect()->route('companies.index')->with('success', 'Company created successfully.');
     }
 
     /**
