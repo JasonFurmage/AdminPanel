@@ -14,9 +14,10 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $companies = Company::paginate(10);
+        $companies = Company::paginate(10); // 10 per page.
         return view('companies.index', compact('companies'));
     }
 
@@ -25,6 +26,7 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         return view('companies.create');
@@ -36,6 +38,7 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(StoreCompanyRequest $request)
     {
         $data = $request->validated();
@@ -68,6 +71,7 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
+
     public function edit(Company $company)
     {
         return view('companies.edit', compact('company'));
@@ -80,13 +84,15 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
+
     public function update(StoreCompanyRequest $request, Company $company)
     {
         $data = $request->validated();
 
+        // Handle logo upload.
         if ($request->hasFile('logo')) {
             
-            // Delete old logo if it exists
+            // Delete old logo if it exists.
             if ($company->logo) {
                 Storage::disk('public')->delete($company->logo);
             }
@@ -105,8 +111,10 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
+    
     public function destroy(Company $company)
     {
+        // Delete old logo if it exists.
         if ($company->logo) {
             Storage::disk('public')->delete($company->logo);
         }
