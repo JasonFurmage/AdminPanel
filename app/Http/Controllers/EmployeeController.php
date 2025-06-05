@@ -14,9 +14,10 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $employees = Employee::with('company')->paginate(10);
+        $employees = Employee::with('company')->paginate(10); // 10 per page.
         return view('employees.index', compact('employees'));
     }
 
@@ -25,6 +26,7 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         $companies = Company::all();
@@ -37,6 +39,7 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(StoreEmployeeRequest $request)
     {
         $data = $request->validated();
@@ -52,6 +55,7 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
+
     public function show(Employee $employee)
     {
         //
@@ -63,6 +67,7 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
+
     public function edit(Employee $employee)
     {
         $companies = Company::all();
@@ -76,6 +81,7 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
+
     public function update(StoreEmployeeRequest $request, Employee $employee)
     {
         $employee->update($request->validated());
@@ -89,11 +95,11 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
+
     public function destroy(Employee $employee)
     {
         $employee->delete();
 
         return redirect()->route('employees.index')->with('success', 'Employee deleted successfully.');
     }
-
 }
