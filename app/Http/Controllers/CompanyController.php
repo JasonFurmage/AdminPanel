@@ -79,9 +79,23 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(StoreCompanyRequest $request, Company $company)
     {
-        //
+        $data = $request->validated();
+
+        if ($request->hasFile('logo')) {
+            
+            // Delete old logo if it exists
+            if ($company->logo) {
+                Storage::disk('public')->delete($company->logo);
+            }
+
+            $data['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+
+        $company->update($data);
+
+        return redirect()->route('companies.index')->with('success', 'Company updated successfully.');
     }
 
     /**
