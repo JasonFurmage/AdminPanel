@@ -15,4 +15,10 @@ class Company extends Model
     'website',
     'logo',
 ];
+
+public function employees()
+{
+    return $this->hasMany(Employee::class);
+}
+
 }
