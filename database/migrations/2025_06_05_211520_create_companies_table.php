@@ -11,8 +11,11 @@ class CreateCompaniesTable extends Migration
      *
      * @return void
      */
+
     public function up()
     {
+
+        // Define table columns.
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -28,6 +31,7 @@ class CreateCompaniesTable extends Migration
      *
      * @return void
      */
+    
     public function down()
     {
         Schema::dropIfExists('companies');

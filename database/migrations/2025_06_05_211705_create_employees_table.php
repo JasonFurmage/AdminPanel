@@ -11,13 +11,16 @@ class CreateEmployeesTable extends Migration
      *
      * @return void
      */
+
     public function up()
     {
+
+        // Define table columns.
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('company_id'); // Foreign key.
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->timestamps();
@@ -32,6 +35,7 @@ class CreateEmployeesTable extends Migration
      *
      * @return void
      */
+
     public function down()
     {
         Schema::dropIfExists('employees');
