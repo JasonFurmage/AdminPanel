@@ -11,6 +11,7 @@ class StoreEmployeeRequest extends FormRequest
      *
      * @return bool
      */
+
     public function authorize()
     {
         return true;
@@ -21,6 +22,7 @@ class StoreEmployeeRequest extends FormRequest
      *
      * @return array
      */
+    
     public function rules()
     {
         return [
