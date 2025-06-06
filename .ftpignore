@@ -4,6 +4,7 @@
 sass/
 
 # Ignore files.
+.env.example
 .gitignore
 .gitattributes
 .ftpignore
