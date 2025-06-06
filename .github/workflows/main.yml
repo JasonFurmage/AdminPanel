@@ -21,12 +21,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           local-dir: ./
-          exclude: |
-            sass/
-            .git/
-            .github/
-            .gitignore
-            .gitattributes
 
       - name: Run Composer and Artisan commands via SSH
         uses: appleboy/ssh-action@v0.1.6
@@ -36,7 +30,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd ${{ secrets.SSH_PATH }}
+            cd ${{ secrets.SSH_BASE_PATH }}/domains/jfurmage.com/public_html/projects/adminpanel
             composer install --no-dev --optimize-autoloader
             php artisan config:cache
             php artisan migrate --force
